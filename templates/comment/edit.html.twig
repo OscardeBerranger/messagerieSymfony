@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommentController!{% endblock %}
+
+{% block body %}
+    <h1>Modifier un commentaire</h1>
+    {{ form_start(form)}}
+    {{ form_row(form.content) }}
+    <button type="submit" class="btn btn-success">MODIFIER</button>
+    {{ form_end(form) }}
+{% endblock %}
