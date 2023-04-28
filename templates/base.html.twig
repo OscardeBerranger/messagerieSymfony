@@ -49,9 +49,16 @@
                         </div>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="btn btn-danger">Log out</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn-danger">Log in</a>
+                        <a href="{{ path('app_register') }}" class="btn btn-success">Register</a>
+
+                {% endif %}
+                <form action="{{ path('post_search') }}" class="d-flex">
+                    <input class="form-control me-sm-2" type="text" name="query" id="query" placeholder="search . . .">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">search</button>
                 </form>
             </div>
         </div>

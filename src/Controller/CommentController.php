@@ -49,6 +49,7 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             $comment->setPosts($post);
+            $comment->setAuthor($this->getUser());
             $comment->setCreatedAt(new \DateTime());
             $manager->persist($comment);
             $manager->flush();
@@ -71,12 +72,15 @@ class CommentController extends AbstractController
 
         if ($comment){$edit=true;}
 
+
         $form = $this->createForm( CommentType::class, $comment);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()){
-
+            if ($comment->getAuthor() != $this->getUser()){
+                return $this->redirectToRoute('app_post');
+            }
             $comment->setCreatedAt(new \DateTime());
             $manager->persist($comment);
             $manager->flush();
@@ -89,4 +93,7 @@ class CommentController extends AbstractController
             "form"=>$form
         ]);
     }
+
+
+
 }

@@ -3,13 +3,17 @@
 {% block title %}Hello PostController!{% endblock %}
 
 {% block body %}
+
+
     <h1 class="mt-3">Voici tous les posts</h1>
     {% for post in posts %}
         <div class="container mb-4 p-2 border border-light">
-            <h3>{{ post.title }}</h3>
+            <h3>{{ post.title }} </h3>
+            <h3>Author : {{ post.author.username }}</h3>
             <p>{{ post.content }}</p>
             <p><strong>{{ post.createdAt|date('d/m/y - H:i') }}</strong></p>
             <a href="{{ path('post_show', {id:post.id}) }}" class="btn btn-light">VOIR LE POST</a>
         </div>
     {% endfor %}
+
 {% endblock %}
