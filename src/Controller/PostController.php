@@ -90,13 +90,12 @@ class PostController extends AbstractController
         return $this->redirectToRoute('app_post');
     }
     #[Route('/post/search', name: 'post_search')]
-    public function search(PostRepository $postRepository): Response
+    public function search(PostRepository $postRepository, Request $request): Response
     {
         $posts = $postRepository->findAll();
         $postsRender = array();
-        if ($_GET['query']){
-            $query = $_GET['query'];
-            $i = 0;
+        if ($request->get('query')){
+            $query = $request->get('query');
             foreach ($posts as $post){
                 if (str_contains($post->getContent(), $query)){
                     array_push($postsRender, $post);
@@ -110,4 +109,9 @@ class PostController extends AbstractController
             'posts'=>$posts
         ]);
     }
+
+
+    /**
+     * Likes
+     */
 }

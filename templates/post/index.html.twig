@@ -2,6 +2,7 @@
 
 {% block title %}Hello PostController!{% endblock %}
 
+
 {% block body %}
 
 
@@ -13,7 +14,47 @@
             <p>{{ post.content }}</p>
             <p><strong>{{ post.createdAt|date('d/m/y - H:i') }}</strong></p>
             <a href="{{ path('post_show', {id:post.id}) }}" class="btn btn-light">VOIR LE POST</a>
+            <p><strong>
+                    <a href="{{ path('app_like', {id:post.id}) }}" class="btn like">
+                        <i class="thumb bi bi-hand-thumbs-up{% if post.isLikedBy(app.user) %}-fill{% endif %}"></i>
+                        <span class="nbrLikes">{{ post.likes|length}}</span>
+                    </a>
+
+                </strong></p>
+
         </div>
     {% endfor %}
+    <script>
 
+
+        function like(event){
+            event.preventDefault()
+
+            fetch(this.href)
+                .then(response=>response.json())
+                .then((data)=>{
+                    console.log(this)
+                    this.querySelector('.nbrLikes').innerHTML = data.count
+                    if(data.liked){
+                        this.querySelector('.thumb').classList.remove('bi-hand-thumbs-up')
+                        this.querySelector('.thumb').classList.add('bi-hand-thumbs-up-fill')
+
+                    }else{
+                        this.querySelector('.thumb').classList.remove('bi-hand-thumbs-up-fill')
+                        this.querySelector('.thumb').classList.add('bi-hand-thumbs-up')
+
+
+                    }
+                })
+        }
+
+        document.addEventListener('DOMContentLoaded', ()=>{
+            const boutonsLike = document.querySelectorAll('.like')
+
+            boutonsLike.forEach((bouton)=>{
+                bouton.addEventListener('click', like)
+            })
+        })
+
+    </script>
 {% endblock %}

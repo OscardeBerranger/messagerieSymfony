@@ -7,18 +7,21 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             <link href="https://bootswatch.com/5/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_post') }}">Navbar</a>
+            <a class="navbar-brand" href="{{ path('app_post') }}">Reddit</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +53,8 @@
                     </li>
                 </ul>
                 {% if app.user %}
-                    <a href="{{ path('app_logout') }}" class="btn btn-danger">Log out</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-danger m-3">Log out</a>
+                    <a href="" class="btn btn-profile"></a>
                     {% else %}
                         <a href="{{ path('app_login') }}" class="btn btn-danger">Log in</a>
                         <a href="{{ path('app_register') }}" class="btn btn-success">Register</a>
@@ -63,6 +67,8 @@
             </div>
         </div>
     </nav>
-        {% block body %}{% endblock %}
+
+    {% block body %}
+        {% endblock %}
     </body>
 </html>

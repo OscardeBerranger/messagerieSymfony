@@ -9,6 +9,9 @@
         <h4>{{ post.author.username }}</h4>
         <p>{{ post.content }}</p>
         <p><strong>{{ post.createdAt|date('d/m/y - H:i') }}</strong></p>
+        {% if post.image %}
+        <img height="300px" src="{{ vich_uploader_asset(post.image,'imageFile') }}" alt="">
+        {% endif %}
         <a href="{{ path('app_post') }}" class="btn btn-light">RETOUR</a>
         {% if post.author.username == app.user.username %}
             <a href="{{ path('post_edit', {id:post.id}) }}" class="btn btn-warning">EDIT</a>
